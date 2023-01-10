@@ -8,6 +8,7 @@ const client = new Client({
 const { BlackList } = require('./DataBase/Models/data');
 
 require('./DataBase/connect');
+require('./uptime')
 client.on(Events.ClientReady, async () => {
     await console.log(client.user.tag);
     await client.user.setActivity(`Idk`, { type: 'WATCHING' });
