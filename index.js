@@ -13,7 +13,7 @@ client.on(Events.ClientReady, async () => {
     await console.log(client.user.tag);
     await client.user.setActivity(`Idk`, { type: 'WATCHING' });
     await client.user.setStatus('idle');
-}).login(process.env.token);
+}).login("MTA1MDA3NTc1NjAwNjQ4MTkzMQ.GWopZH.u7nkdtw01LcxBLoHXbJGvFk_7c2Nb_DMdqdwOk");
 
 const prefix = '$'
 
@@ -126,7 +126,7 @@ client.on(Events.MessageCreate, async message => {
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
-    if (message.author.id !== '609399645273194507') return
+    //if (message.author.id !== '609399645273194507') return
     if (command === 'black-add') {
 
         let server = args[0];
@@ -135,17 +135,15 @@ client.on(Events.MessageCreate, async message => {
             return message.reply({ content: 'id server', allowedMentions: { repliedUser: false } });
         }
 
-        await client.fetchInvite(server).then(async (data) => {
+
 
             let test = await BlackList.findOne({
-                GuildId: data.guild.id
+                GuildId: server
             });
 
             if (!test) {
                 await BlackList.create({
-                    GuildId: data.guild.id,
-                    OwnerID: data.guild.ownerId,
-                    ServerName: data.guild.name
+                    GuildId: server,
 
                 });
                 let embed1 = new EmbedBuilder()
@@ -157,11 +155,6 @@ client.on(Events.MessageCreate, async message => {
                 embed2.setDescription('سيرفر بالع بلاك من قبل')
                 await message.reply({ embeds: [embed2], allowedMentions: { repliedUser: false } });
             }
-        }).catch(async (err) => {
-            await message.channel.send({ content: 'Please specify a valid link.' });
-            console.error(err);
-        });
-
     }
 
     if (command === 'black-remove') {
@@ -171,10 +164,9 @@ client.on(Events.MessageCreate, async message => {
         if (!server) {
             return message.reply({ content: 'link server', allowedMentions: { repliedUser: false } })
         }
-        await client.fetchInvite(server).then(async (data) => {
 
             let fetch = await BlackList.findOne({
-                GuildId: data.guild.id
+                GuildId: server
             });
 
             if (!fetch) {
@@ -185,7 +177,7 @@ client.on(Events.MessageCreate, async message => {
                 await message.reply({ embeds: [embed2], allowedMentions: { repliedUser: false } });
             } else {
                 await BlackList.deleteMany({
-                    GuildId: data.guild.id
+                    GuildId: server
                 }).then(async () => {
 
                     let embed1 = new EmbedBuilder()
@@ -196,10 +188,6 @@ client.on(Events.MessageCreate, async message => {
                     await message.reply({ embeds: [embed1], allowedMentions: { repliedUser: false } });
                 });
             }
-        }).catch(async (err) => {
-            await message.channel.send({ content: 'Please specify a valid link.' });
-            console.error(err);
-        });
     }
 })
 
