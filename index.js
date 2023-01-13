@@ -126,7 +126,7 @@ client.on(Events.MessageCreate, async message => {
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
-    //if (message.author.id !== '609399645273194507') return
+    if (message.author.id !== '609399645273194507') return
     if (command === 'black-add') {
 
         let server = args[0];
