@@ -13,7 +13,7 @@ client.on(Events.ClientReady, async () => {
     await console.log(client.user.tag);
     await client.user.setActivity(`Idk`, { type: 'WATCHING' });
     await client.user.setStatus('idle');
-}).login("MTA1MDA3NTc1NjAwNjQ4MTkzMQ.GWopZH.u7nkdtw01LcxBLoHXbJGvFk_7c2Nb_DMdqdwOk");
+}).login(process.env.token);
 
 const prefix = '$'
 
